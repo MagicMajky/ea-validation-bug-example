@@ -19,16 +19,15 @@ class ValidEmailValidator extends ConstraintValidator
             return;
         }
 
-        if (!$value instanceof Email) {
-            throw new UnexpectedValueException($value, Email::class);
+        if (!is_string($value)) {
+            throw new UnexpectedValueException($value, 'string');
         }
         // assert that there is at least one @ in the string
-
-        if (!str_contains($value->getEmail(), '@')) {
+        if (!str_contains($value, '@')) {
             $this->context->buildViolation($constraint->message)
                 ->setParameter('{{ email }}', $value)
-                ->atPath('email')
                 ->addViolation();
         }
+
     }
 }

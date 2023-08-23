@@ -7,7 +7,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator as CustomAssert;
 
-#[CustomAssert\ValidEmail]
 #[ORM\Entity(repositoryClass: EmailRepository::class)]
 class Email
 {
@@ -16,6 +15,7 @@ class Email
     #[ORM\Column]
     private ?int $id = null;
 
+    #[CustomAssert\ValidEmail]
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
