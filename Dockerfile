@@ -1,17 +1,6 @@
 # Use the official PHP image from the dockerhub
 FROM webdevops/php-dev:8.2
 
-RUN apt-get update \
-    && apt-get install -y \
-        libglu1 \
-        libxi6 \
-        libgconf-2-4 \
-        default-jre \
-        libreoffice-writer \
-        smbclient \
-        libsmbclient-dev \
-    && ldconfig
-
 RUN wget https://get.symfony.com/cli/installer -O - | bash \
     && mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
@@ -24,4 +13,3 @@ RUN usermod -u $RANDOM_ID $(id -un $MY_UID > /dev/null 2>&1) > /dev/null 2>&1 ||
     && groupmod -g $MY_GID $APPLICATION_GROUP \
     && chown -R $APPLICATION_USER:$APPLICATION_GROUP -R /app \
     && chown -R $APPLICATION_USER:$APPLICATION_GROUP -R /home/$APPLICATION_USER
-CMD ["symfony", "server:start", "--allow-http", "--port=8000"]
